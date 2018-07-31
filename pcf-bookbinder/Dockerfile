@@ -1,3 +1,4 @@
+# PCF's BookBinder 10.1.14 (https://github.com/pivotal-cf/bookbinder). An image built with this Dockerfile can be found at: https://hub.docker.com/r/ductha/bookbinder/ 
 # Use an official Python runtime as a parent image
 FROM ubuntu:14.04 
 
@@ -7,7 +8,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 ADD . /app
 
-# Install any needed packages specified in requirements.txt
+# Install any needed packages 
 RUN apt-get update && apt-get install -y \
 	git-core \
 	curl \
@@ -22,6 +23,7 @@ RUN apt-get update && apt-get install -y \
 	python-software-properties \
 	libffi-dev \
 	wget && rm -rf /var/lib/apt/lists/*
+# Install ruby 2.3.1 and bookbinder
 RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv; \
 	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc; \
 	echo 'eval "$(rbenv init -)"' >> ~/.bashrc; \
@@ -39,5 +41,5 @@ RUN git clone https://github.com/rbenv/rbenv.git ~/.rbenv; \
 EXPOSE 4567/tcp
 
 
-# Run app.py when the container launches
+# By default, launch a bash shell.
 ENTRYPOINT /bin/bash 
